@@ -1,0 +1,54 @@
+Partials are the small  part of the tempplate that can be reused to improve the reusability
+
+Like in our project we have a same navbar for all pages so we can reuse it effeciently
+
+Middle ware  : is the plae where the code runs on the server between the request is being made
+and response is being delivered
+
+                                    SERVER
+            request ---->       app.use(())
+                                    //but middleware doesn't know how to move on so we use next()
+            response    <----   app.get('/',())
+
+                                app.use(())    
+
+//middleware using use() function
+// app.use((req, res, next) => {
+//     console.log('Request is being made')
+//     console.log('Host', req.hostname);
+//     console.log('Path', req.path);
+//     next() //it is to inform middleware to move to the next request
+// })
+
+Static Files: Those files that are public means can be access by views folder's files
+if we tried to acess file in our project directory but not in views folder then it will not
+applicable on the browser as we know that express always looking for views folder that is EJS Files in this case
+
+So we make a new folder to make the files like styling files .css that are static to be acessed by them
+app.use(express.static('public'))//public in this case is folder name in which static file are present
+
+//Types of requests:
+Get request: to get a resource
+
+Post request: to create new data in database(e.g. a new blog)
+
+Delete request: to delete data in database(e.g. delate a blog)
+
+Put request: to update data in database(e.g. update a blog)
+
+
+POST Request: While handling post request,we hav e to use middleware ulrencoded that will attach 
+the passed data from form to 'req' object in its 'body' attribute,in this way we can acess all data using req.body
+app.use(express.urlencoded());
+
+name attribute used in the form with each field represent the field instance
+
+ROUTE Parameters
+the variable parts of the route that may change value 
+like: https://localhost:3000/blogs/:id
+
+
+MVC - Model, View, and Controller
+It is a way of structuring our code and files,keeps our code more reusable, modular, and readable
+COntroller is the medium between model and views
+we call controller functions in our route files, for we have to make a new folder name controllers

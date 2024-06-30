@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+
+    <body>
+        <%- include('./partials/nav.ejs') %>
+
+            <div class="details content">
+                <h2>
+                    <%=blog.title%>
+                </h2>
+                <div class="content">
+                    <p>
+                        <%=blog.body%>
+                    </p>
+                </div>
+                <a class="delete" data-doc="<%= blog._id%>">delete</a>
+            </div>
+            <%- include('./partials/footer.ejs') %>
+
+                <!-- We have to add some front-end js to handle delete button this will run on the browser
+                and we will use fetch api to go onto the server (app.js) by hitting the 'endpoint' and run app.js code
+                on the server to delete that blog from database -->
+                <!-- Also,an important thing is that we couldn't redirect the route to other route while end up with deleting
+                because it was hit from front-end so it should return back to the browser first -->
+                <script>
+                    const trashBtn = document.querySelector('a.delete')
+
+                    trashBtn.addEventListener('click', (event) => {
+                        const endpoint = `/blogs/${trashBtn.dataset.doc}`//this 'doc' is mentioned in anchor tag 'data-doc',it can be any name
+                        //asynchronous function(it will return promise)
+                        fetch(endpoint, {
+                            method: 'DELETE'
+                        })
+                            .then((response) => response.json())
+                            .then((data) => window.location.href = data.redirect)
+                            .catch(err => { console.log(err) })
+
+                    })
+                </script>
+    </body>
+
+</html>
