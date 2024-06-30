@@ -49,7 +49,6 @@ const blog_delete = (req, res) => {
     if (mongoose.Types.ObjectId.isValid(id)) {
         Blog.findByIdAndDelete(id)
             .then((result) => {
-                console.log(result)
                 //this will do in this regards to return to the browser
                 res.json({ redirect: '/blogs' })//we get this json data on frontend
             }).catch(err => {
